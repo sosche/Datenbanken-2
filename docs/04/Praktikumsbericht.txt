@@ -1,0 +1,21 @@
+Praktikumsbericht Datenbanken 2 - Praktikum 4 Massendatengenerierung
+
+- Alle Kategorien mit den dazugehörigen Fragen aus der Datenbank werden zunächst eingelesen und in einer Liste 
+lokal abgespeichert
+
+- Der Entity-Manager wird vor Beginn der Datengenerierung mittels "clear()" geleert und eine neue Transaktion mit
+"getTransaction().begin()" gestartet
+
+- Es werden immer 100 Spieler in einem Commit zusammengefasst
+
+- Nach einem Commit wird der Entity-Manager wieder mittels "clear()" geleert und eine neue Transaktion wird gestartet
+
+- Nachdem die letzten Spiele generiert wurden, wird ein letzter Commit ausgeführt
+
+- Durch batch-writing werden einzelne Anfragen an die Datenbank gesammelt und danach gruppiert an das DBMS übertragen. 
+Der Overhead der einzelnen Anfragen wird dadurch reduziert, daher wird die Performance der Datengenerierung erhöht.
+
+-> Ohne eine Batch-Writing Size erreichen wir eine Laufzeit von 36 Minuten 17 Sekunden.
+-> Bei einer Batch-Writing Size von 1.000 ergibt sich eine Laufzeit von 12 Minuten 27 Sekunden.
+-> Durch die Verwendung eine Batch-Writing Size konnten wir eine zeitlich prozentuale Verbesserung von 65,59% feststellen.
+

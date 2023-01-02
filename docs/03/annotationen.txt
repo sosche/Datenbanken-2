@@ -1,0 +1,29 @@
+-Spieler gibt seinen Namen ein
+-Spieler wähle Anzahl von Kategorien aus(min. 2)
+-Spieler wählt max. Anzahl von Fragen aus(min. 2), falls Kategorie wenniger Fragen besitzt wird die max. Anzahl aus der Kategorie gewählt
+-Frage wird gestellt mit den möglichen Antworten
+-Spieler wählt eine mögliche Antwort und erfährt ob es richtig oder falsch war
+-Es werden zufällig Fragen gewählt und die Fragen wiederholen sich nicht
+
+
+@Entity
+class Player
+@Id
+@GeneratedValue
+@OnetoMany(mappedBy = "player")
+List<Game> games
+
+@Entity
+Game
+@Id
+@GeneratedValue
+@ManytoOne
+Player player
+@ManytoMany
+Map<Question, boolean> answer;
+
+
+@Entity
+Question
+@ManytoMany(mappedBy = "question")
+List<Games> games

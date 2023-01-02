@@ -1,0 +1,55 @@
+image: openjdk:11
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - chmod +x ./gradlew
+
+
+stages:
+  - build
+  - check
+
+build:
+  stage: build
+  script:
+    - ./gradlew assemble
+
+checkstyle_main:
+  stage: check
+  script:
+    - ./gradlew checkstyleMain -x test
+    - cp build/reports/checkstyle/main.html ./checkstyleMain.html
+  artifacts:
+    paths:
+      - checkstyleMain.html
+    expire_in: 1 week
+
+checkstyle_test:
+  stage: check
+  script:
+    - ./gradlew checkstyleTest -x test
+    - cp build/reports/checkstyle/test.html ./checkstyleTest.html
+  artifacts:
+    paths:
+      - checkstyleTest.html
+    expire_in: 1 week
+
+spotbugs_main:
+  stage: check
+  script:
+    - ./gradlew spotbugsMain -x test
+    - cp build/reports/spotbugs/main.html ./spotbugsMain.html
+  artifacts:
+    paths:
+      - spotbugsMain.html
+    expire_in: 1 week
+
+spotbugs_test:
+  stage: check
+  script:
+    - ./gradlew spotbugsTest -x test
+    - cp build/reports/spotbugs/test.html ./spotbugsTest.html
+  artifacts:
+    paths:
+      - spotbugsTest.html
+    expire_in: 1 week

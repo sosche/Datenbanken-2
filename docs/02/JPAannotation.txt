@@ -1,0 +1,35 @@
+@Entity
+@Table (name = "category", schema = "scherazweizel")
+ Category
+        @Id
+        @Column (unique=true)
+        category_name
+
+        @OneToMany (mappedBy = "category")
+        questions
+
+-------------------------------------------------
+@Entity
+@Table (name = "question", schema = "scherazweizel
+ Question
+        @Id
+        @Column
+        questionID
+
+        @ManyToOne
+        category
+
+        @Column
+        question
+        
+        @ElementCollection
+        @CollectionTable(name = "Answer", schema = "scherazweizel")
+        List <Answer>
+--------------------------------------------------
+@Embeddable
+ Answer
+        @Column
+        answer
+
+        @Column
+        isCorrect
